@@ -1,0 +1,67 @@
+﻿@section scripts{
+    <script type="text/javascript" src="~/Services/CustomerScript.js "></script>
+    <script>$(function () { OnLoad(); })</script>
+}
+<h2>All Customers</h2>
+<div style="width:800px; margin-left:auto; margin-right:auto">
+    <button type="button" class="btn btn-success" data-bind="value: 'Create', click: function(){mouseClickCreate()}">Create</button>
+
+    <p>&nbsp;</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th bg="color: white">Id</th>
+                <th bg="color: white">Customer Name</th>
+                <th bg="color: white">Customer Address</th>
+                <th bgcolor="White" colspan="2" class="col-lg-1 col-centered"><p align="center">Action</p></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: customertable">
+            <tr>
+                <td data-bind="text:Id"></td>
+                <td data-bind="text:CustomerName"></td>
+                <td data-bind="text:CustomerAddress"></td>
+                <td>
+                    <input type="button" id="edit" class="btn btn-success" data-bind="text: Id, value: 'Edit', click: function(){mouseClickEdit($data);}" />
+                </td>
+                <td>
+                    <input type="button" id="delete" class="btn btn-danger" data-bind="text: Id, value: 'Delete', click: function(){mouseClickDelete($data);}" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@*Model Start*@
+<div id="updatemodal" class="modal fade" role="dialog">
+    <div class="modal-dialog" data-bind="with: selectedcust">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="modeltitle" class="modal-title" data-bind="modaltitle"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <button type="button" class="btn btn-success" id="btnsave" data-bind="click: function(){SaveChanges()}, enable: cansave, text: btnlabel"></button>
+                    <div><input id="customerid" name="customerid"  hidden="hidden" data-bind="value: customerid"></div>
+                    <p>&nbsp;</p>
+                    <div>
+                        <h3 style="color:red">All fields must have a value</h3>
+                    </div>
+                    <p>&nbsp;</p>
+                    <div>
+                        <label>Name: </label>
+                        <input type="text" id="customername" name="customername" style="width:400px" data-bind="value: customername ">
+                    </div>
+                    <div>
+                        <label>Address: </label>
+                        <input type="text" id="customeraddress" name="customeraddress" style="width:400px" data-bind="value: customeraddress ">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*Model End*@
